@@ -2,12 +2,12 @@ from django.urls import path, reverse_lazy, include
 from django_registration.backends.one_step.views import RegistrationView
 
 from .views import *
-from .forms import RegistrationForm
+from .forms import RegisterForm
 
 urlpatterns = [
     path('create/',
          RegistrationView.as_view(
-             form_class=RegistrationForm, success_url=reverse_lazy('index')
+             form_class=RegisterForm, success_url=reverse_lazy('index')
          ),
          name='register'
          ),
