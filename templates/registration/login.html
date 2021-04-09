@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block styles %}{% static 'registration/css/login.css' %}{% endblock %}
+
+
+{% block main %}
+    <div class="container-xl main__div-center">
+        <div class="main__login">
+
+            {% if form.errors %}
+                <p>Your username and password didn't match. Please try again.</p>
+            {% endif %}
+
+
+            {% if user.is_authenticated %}
+                <p class="header__profile__bio">Вы уже вошли в свой аккаунт!</p>
+                <a href="{% url 'index' %}" class="main__login__text-white">Нажмите для возвращения на главную</a>
+            {% else %}
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="main__login__table">
+                        <div class="main__login__table__line">
+                            <p class="main__login__text-white">{{ form.username.label_tag }}</p>
+                            <p>{{ form.username }}</p>
+                        </div>
+
+                        <div class="main__login__table__line">
+                            <p class="main__login__text-white">{{ form.password.label_tag }}</p>
+                            <p>{{ form.password }}</p>
+                        </div>
+                    </div>
+
+                    <input class="main__login__button" type="submit" value="Войти"/>
+                    <input type="hidden" name="next" value="{{ next }}"/>
+                </form>
+
+                {# Assumes you setup the password_reset view in your URLconf #}
+                <br>
+                <a class="header__controls__link" href="#">Забыли пароль?</a>
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock %}

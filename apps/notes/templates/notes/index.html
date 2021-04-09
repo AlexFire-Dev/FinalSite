@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block main %}
+    <div class="container-xl">
+        <form class="main__form" method="get">
+            <label for="search">Найти заметку</label>
+            <input type="search" class="form-control" name="search" id="search" placeholder="Текст или заголовок" style="width: 200px; margin: 0 10px">
+            <button type="submit" class="btn btn-primary">Найти</button>
+        </form>
+        <div class="container main">
+            {% for note in notes %}
+                {% include 'notes/note.html' %}
+            {% endfor %}
+            <div class="main__note-hidden"></div>
+            <div class="main__note-hidden"></div>
+        </div>
+    </div>
+{% endblock %}

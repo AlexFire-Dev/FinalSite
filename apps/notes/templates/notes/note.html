@@ -1,0 +1,14 @@
+<div class="card text-center main__note">
+    <div class="card-header main__note__header">
+        <span>{{ note.title }}</span>
+        <span>{% if note.author.get_full_name %}{{ note.author.get_full_name }}{% else %}{{ note.author.username }}{% endif %}</span>
+    </div>
+    <div class="card-body main__note__body">
+        <p>{{ note.text|truncatewords:30 }}</p>
+        <a href="{% url 'note' note.id %}" class="btn btn-primary">Открыть</a>
+    </div>
+    <div class="card-footer text-muted main__note__body">
+        <span>Создано: {{ note.created_at }}</span>
+        <span>Обновлено: {{ note.modified_at }}</span>
+    </div>
+</div>
