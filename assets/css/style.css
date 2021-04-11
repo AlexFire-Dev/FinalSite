@@ -52,6 +52,7 @@ body {
   font-size: 18px;
   border: solid 1px transparent;
   border-radius: 5px;
+  width: fit-content;
 }
 
 .header__controls__link:hover {
@@ -84,9 +85,8 @@ body {
 .main__note-hidden {
   visibility: hidden;
   width: 300px;
-  height: fit-content;
-  min-height: 250px;
-  margin: 10px;
+  height: 0;
+  margin: 0 10px;
 }
 
 .main__note__header {

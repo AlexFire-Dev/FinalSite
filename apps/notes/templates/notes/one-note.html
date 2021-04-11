@@ -15,9 +15,11 @@
                 <span>Обновлено: {{ note.modified_at }}</span>
              </div>
         </div>
+        {% if note.author == user %}
         <div class="main__form">
             <a href="#" class="btn btn-primary" style="margin-right: 10px;">Изменить</a>
             <a href="#" class="btn btn-danger">Удалить</a>
         </div>
+        {% endif %}
     </div>
 {% endblock %}

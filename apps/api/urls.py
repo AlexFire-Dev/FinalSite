@@ -6,7 +6,8 @@ from .views import *
 
 router = routers.SimpleRouter()
 
-router.register(r'notes', NoteApiView)
+router.register(r'note', NoteApiView)
+router.register(r'user', UserApiView)
 
 urlpatterns = [
     path('', include(router.urls))

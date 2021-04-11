@@ -13,7 +13,10 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 from django.urls import reverse_lazy
 import django_heroku
+import os
 
+
+os.environ['DATABASE_URL'] = 'postgres://znuabjsiwexddd:00d48e0b72f8d09f90be74ae5280bf3d7dcbd53e2b98fdee91c3b875a6c573aa@ec2-108-128-104-50.eu-west-1.compute.amazonaws.com:5432/dbbnmk039c45j8'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
@@ -134,6 +137,18 @@ STATIC_ROOT = BASE_DIR / 'static'
 STATICFILES_DIRS = [
     BASE_DIR / 'assets'
 ]
+
+
+# Django rest framework
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+    ]
+}
 
 
 django_heroku.settings(locals())

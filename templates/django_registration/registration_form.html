@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block extra-styles %}{% static 'css/django-registration/create-account.css' %}{% endblock %}
 
 {% block main %}
-    {{ form }}
+    <form method="post" class="container create__form">
+        {% csrf_token %}
+        {% for field in form %}
+            <dt>{{ field.label_tag }}</dt>
+            <dd class="">{{ field }}
+            {% if field.help_text %}<div class="">{{ field.help_text }}</div>{% endif %}
+            {% if field.errors %}<div class="">{{ field.errors }}</div>{% endif %}
+            </dd>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+    </form>
 {% endblock %}
