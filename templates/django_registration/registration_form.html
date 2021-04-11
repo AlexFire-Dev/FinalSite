@@ -4,6 +4,7 @@
 
 {% block main %}
     <form method="post" class="container create__form">
+        <h2 style="margin-bottom: 20px">Регистрация</h2>
         {% csrf_token %}
         {% for field in form %}
             <dt>{{ field.label_tag }}</dt>
@@ -12,6 +13,6 @@
             {% if field.errors %}<div class="">{{ field.errors }}</div>{% endif %}
             </dd>
         {% endfor %}
-        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+        <button type="submit" class="btn btn-primary" style="margin-top: 10px">Зарегистрироваться</button>
     </form>
 {% endblock %}

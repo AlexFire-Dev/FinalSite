@@ -16,6 +16,7 @@
                 <a href="{% url 'index' %}" class="main__login__text-white">Нажмите для возвращения на главную</a>
             {% else %}
                 <form style="margin-top: 15px" method="post" action="{% url 'login' %}">
+                    <h2 style="margin-bottom: 20px">Вход</h2>
                     {% csrf_token %}
                     {% for field in form %}
                         <dt>{{ field.label_tag }}</dt>
