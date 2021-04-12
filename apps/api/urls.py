@@ -1,14 +1,14 @@
 from django.urls import path, reverse_lazy, include
-from rest_framework import routers
+from rest_framework.authtoken.views import obtain_auth_token
+from django.contrib.auth.decorators import login_required
 
 from .views import *
 
 
-router = routers.SimpleRouter()
-
-router.register(r'note', NoteApiView)
-router.register(r'user', UserApiView)
-
 urlpatterns = [
-    path('', include(router.urls))
+    path('note/', NoteApi.as_view(), name='get-notes'),
+    path('user/', UserApi.as_view(), name='get-users'),
+
+    path('developers/', login_required(DeveloperToken.as_view()), name='developer-portal'),
+    path('token-create/', login_required(obtain_auth_token), name='token_create'),
 ]

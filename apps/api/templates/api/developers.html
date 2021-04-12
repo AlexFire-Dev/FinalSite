@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="container">
+    {% if token.key %}
+        <h2 style="margin-bottom: 20px; margin-top: 15px">Портал разработки</h2>
+        <dt>Ваш токен:</dt>
+        <dd class="">{{ token.key }}</dd>
+        <a class="btn btn-primary" style="margin-top: 20px">Пересоздать</a>
+    {% else %}
+        <h2 style="margin-bottom: 20px; margin-top: 15px">Портал разработки</h2>
+        <dt>Ваш токен:</dt>
+        <dd class="">{{ token.key }}</dd>
+        <a class="btn btn-primary" style="margin-top: 20px">Создать</a>
+    {% endif %}
+</div>
+{% endblock %}

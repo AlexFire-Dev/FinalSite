@@ -6,7 +6,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Лучший чат</title>
+        <title>Заметки онлайн</title>
 
         <link
             rel="stylesheet"
@@ -39,8 +39,8 @@
                     {% if user.is_authenticated %}
                         <a class="header__controls__link" href="{% url 'index' %}">Главная</a>
                         <a class="header__controls__link" href="{% url 'index' %}">Создать заметку</a>
-                        <a class="header__controls__link" href="{% url 'index' %}">Публичные заметки</a>
-                        <a class="header__controls__link" href="{% url 'index' %}">Мои заметки</a>
+                        <a class="header__controls__link" href="{% url 'index' %}?section=public-notes">Публичные заметки</a>
+                        <a class="header__controls__link" href="{% url 'index' %}?section=my-notes">Мои заметки</a>
                         <a class="header__controls__link" href="{% url 'logout' %}">Выйти</a>
                     {% else %}
                         <a class="header__controls__link" href="{% url 'register' %}">Регистрация</a>

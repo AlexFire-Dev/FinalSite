@@ -16,8 +16,6 @@ import django_heroku
 import os
 
 
-os.environ['DATABASE_URL'] = 'postgres://znuabjsiwexddd:00d48e0b72f8d09f90be74ae5280bf3d7dcbd53e2b98fdee91c3b875a6c573aa@ec2-108-128-104-50.eu-west-1.compute.amazonaws.com:5432/dbbnmk039c45j8'
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '+lcu6n#grqmd5nj5%0mbf5@=!k^!97g%yna7f*^1@j0@ed&0&v'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -44,6 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+    'rest_framework.authtoken',
+    'django_filters',
+
     'apps.registration',
     'apps.notes',
     'apps.api',
@@ -142,15 +145,9 @@ STATICFILES_DIRS = [
 # Django rest framework
 
 REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': [
-        'rest_framework.renderers.JSONRenderer',
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
     ],
-    'DEFAULT_PARSER_CLASSES': [
-        'rest_framework.parsers.JSONParser',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    ]
 }
 
 

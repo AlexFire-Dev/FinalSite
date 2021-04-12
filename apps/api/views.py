@@ -1,27 +1,55 @@
+from django.views.generic import TemplateView
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.generics import *
 from rest_framework.permissions import *
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.authtoken.models import Token
 
 from apps.notes.models import *
 from apps.registration.models import *
 from .serializers import *
 
 
-class NoteApiView(ModelViewSet):
-    queryset = Note.objects.all()
+class DeveloperToken(TemplateView):
+    template_name = 'api/developers.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        token = Token.objects.get(user=self.request.user)
+
+        context.update({
+            'token': token,
+        })
+        return context
+
+
+class UserApi(ListAPIView):
+    """Пользователи"""
+
+    permission_classes = [IsAdminUser]
+    serializer_class = UserSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filter_fields = ['id', 'username', 'first_name', 'last_name']
+    search_fields = ['username', 'first_name', 'last_name']
+    ordering_fields = ['id', 'username', 'first_name', 'last_name']
+
+    def get_queryset(self):
+
+        queryset = User.objects.all()
+        return queryset
+
+
+class NoteApi(ListAPIView):
+    """Заметки"""
+
     serializer_class = NotesSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filter_fields = ['id', 'title', 'author', 'status']
     search_fields = ['title', 'text']
     ordering_fields = ['id', 'title']
 
+    def get_queryset(self):
 
-class UserApiView(ModelViewSet):
-    permission_classes = [IsAdminUser]
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filter_fields = ['id', 'username', 'first_name', 'last_name']
-    search_fields = ['username', 'first_name', 'last_name']
-    ordering_fields = ['id', 'username', 'first_name', 'last_name']
+        query_set = Note.objects.all()
+        return query_set
