@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_registration',
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
@@ -56,6 +57,20 @@ AUTH_USER_MODEL = 'registration.User'
 
 LOGIN_REDIRECT_URL = reverse_lazy('index')
 LOGOUT_REDIRECT_URL = reverse_lazy('login')
+
+# Account activation code
+ACCOUNT_ACTIVATION_DAYS = 1
+
+# Mail settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+AUTH_USER_EMAIL_UNIQUE = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = os.getenv('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = os.getenv('EMAIL_USER')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

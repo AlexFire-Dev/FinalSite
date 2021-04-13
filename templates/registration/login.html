@@ -30,7 +30,7 @@
 
                 {# Assumes you setup the password_reset view in your URLconf #}
                 <br>
-                <a style="font-weight: bold; text-decoration: none" href="#">Забыли пароль?</a>
+                <a style="font-weight: bold; text-decoration: none" href="{% url 'password_reset' %}">Забыли пароль?</a>
             {% endif %}
 
         </div>
