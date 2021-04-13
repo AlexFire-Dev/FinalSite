@@ -1,3 +1,5 @@
+from django.shortcuts import redirect
+from django.urls import reverse
 from django.views.generic import TemplateView
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
@@ -16,7 +18,10 @@ class DeveloperToken(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        token = Token.objects.get(user=self.request.user)
+        if Token.objects.filter(user=self.request.user):
+            token = Token.objects.get(user=self.request.user)
+        else:
+            token = 'Ещё не создан!'
 
         context.update({
             'token': token,
@@ -43,6 +48,7 @@ class UserApi(ListAPIView):
 class NoteApi(ListAPIView):
     """Заметки"""
 
+    permission_classes = [IsAuthenticated]
     serializer_class = NotesSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filter_fields = ['id', 'title', 'author', 'status']
@@ -53,3 +59,9 @@ class NoteApi(ListAPIView):
 
         query_set = Note.objects.all()
         return query_set
+
+
+def CreateToken(request):
+
+    Token.objects.get_or_create(user=request.user)
+    return redirect(reverse('developer-portal'))

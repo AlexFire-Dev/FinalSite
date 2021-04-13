@@ -10,5 +10,5 @@ urlpatterns = [
     path('user/', UserApi.as_view(), name='get-users'),
 
     path('developers/', login_required(DeveloperToken.as_view()), name='developer-portal'),
-    path('token-create/', login_required(obtain_auth_token), name='token_create'),
+    path('developers/token-create/', login_required(CreateToken), name='token_create'),
 ]

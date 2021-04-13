@@ -6,12 +6,14 @@
         <h2 style="margin-bottom: 20px; margin-top: 15px">Портал разработки</h2>
         <dt>Ваш токен:</dt>
         <dd class="">{{ token.key }}</dd>
-        <a class="btn btn-primary" style="margin-top: 20px">Пересоздать</a>
+        <br>
+        <dt>Чтобы авторизоваться, отправьте строку:</dt>
+        <dd>{'Authorization': 'Token {{ token.key }}'}</dd>
     {% else %}
         <h2 style="margin-bottom: 20px; margin-top: 15px">Портал разработки</h2>
         <dt>Ваш токен:</dt>
-        <dd class="">{{ token.key }}</dd>
-        <a class="btn btn-primary" style="margin-top: 20px">Создать</a>
+        <dd class="">{{ token }}</dd>
+        <a type="submit" class="btn btn-primary" href="{% url 'token_create' %}" style="margin-top: 20px">Создать</a>
     {% endif %}
 </div>
 {% endblock %}
