@@ -6,7 +6,7 @@
         <h2 style="margin-bottom: 20px; margin-top: 15px">Портал разработки</h2>
         <dt>Ваш токен:</dt>
         <dd class="">{{ token.key }}</dd>
-        <br>
+        <a type="submit" class="btn btn-primary" href="{% url 'token_create' %}" style="margin-bottom: 20px">Пересоздать</a>
         <dt>Чтобы авторизоваться, отправьте строку:</dt>
         <dd>{'Authorization': 'Token {{ token.key }}'}</dd>
     {% else %}

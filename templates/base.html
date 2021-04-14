@@ -38,7 +38,7 @@
                 <div class="header__controls">
                     {% if user.is_authenticated %}
                         <a class="header__controls__link" href="{% url 'index' %}">Главная</a>
-                        <a class="header__controls__link" href="{% url 'index' %}">Создать заметку</a>
+                        <a class="header__controls__link" href="{% url 'create-note' %}">Создать заметку</a>
                         <a class="header__controls__link" href="{% url 'index' %}?section=public-notes">Публичные заметки</a>
                         <a class="header__controls__link" href="{% url 'index' %}?section=my-notes">Мои заметки</a>
                         <a class="header__controls__link" href="{% url 'logout' %}">Выйти</a>

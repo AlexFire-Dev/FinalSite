@@ -63,5 +63,9 @@ class NoteApi(ListAPIView):
 
 def CreateToken(request):
 
-    Token.objects.get_or_create(user=request.user)
+    if Token.objects.filter(user=request.user):
+        Token.objects.get(user=request.user).delete()
+        Token.objects.get_or_create(user=request.user)
+    else:
+        Token.objects.get_or_create(user=request.user)
     return redirect(reverse('developer-portal'))
