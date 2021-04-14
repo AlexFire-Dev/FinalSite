@@ -5,9 +5,12 @@
 
 {% block main %}
     <div class="container-xl">
-        <form class="main__form" method="get">
+        <form class="main__form" action="" method="get">
             <label for="search">Найти заметку</label>
-            <input type="search" class="form-control" name="search" id="search" placeholder="Текст или заголовок" style="width: 200px; margin: 0 10px">
+            <input type="search" class="form-control" name="search" id="search" value="{{ search }}" autocomplete="off" placeholder="Текст или заголовок" style="width: 200px; margin: 0 10px">
+            {% if section %}
+                <input type="hidden" name="section" value="{{ section }}">
+            {% endif %}
             <button type="submit" class="btn btn-primary">Найти</button>
         </form>
         <div class="container main">

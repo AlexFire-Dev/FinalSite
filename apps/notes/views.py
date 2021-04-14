@@ -1,19 +1,38 @@
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, TemplateView
 import requests
 
 from .models import Note
 from .forms import CreateNoteForm
 
 
-def index_view(request):
+class IndexView(TemplateView):
+    template_name = 'notes/index.html'
 
-    context = {
-        'notes': Note.objects.all()
-    }
-    return render(request, 'notes/index.html', context=context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        section = self.request.GET.get('section')
+        search = self.request.GET.get('search', '')
+
+        if section == 'public-notes':
+            notes = Note.objects.filter(status=True)
+        elif section == 'my-notes':
+            notes = Note.objects.filter(author=self.request.user)
+        else:
+            notes = Note.objects.filter(Q(status=True) | Q(author=self.request.user))
+
+        if search != '':
+            notes = notes.filter(Q(title__contains=search) | Q(text__contains=search))
+
+        context.update({
+            'notes': notes,
+            'section': section,
+            'search': search,
+        })
+        return context
 
 
 def note_view(request, note: int):
