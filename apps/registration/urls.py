@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.urls import path, reverse_lazy, include
 from django_registration.backends.activation.views import RegistrationView
 
@@ -13,4 +14,6 @@ urlpatterns = [
          ),
     path('', include('django_registration.backends.activation.urls')),
     path('', include('django.contrib.auth.urls')),
+
+    path('<int:userid>/', login_required(AccountView), name='user-account')
 ]

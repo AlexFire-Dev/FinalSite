@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra-styles %}{% static 'css/accounts/account.css' %}{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <table style="width: 100%;margin-top: 25px">
+            <tr>
+                <td><span style="font-weight: bold">Имя пользователя: </span></td>
+                <td>{{ accountuser.username }}</td>
+            </tr>
+            <tr>
+                <td><span style="font-weight: bold">Имя: </span></td>
+                <td>{% if accountuser.first_name %}<span>{{ accountuser.first_name }}</span>{% else %}
+                    <span>Не указано</span>{% endif %}</td>
+            </tr>
+            <tr>
+                <td><span style="font-weight: bold">Фамилия: </span></td>
+                <td>{% if accountuser.last_name %}<span>{{ accountuser.last_name }}</span>{% else %}
+                    <span>Не указано</span>{% endif %}</td>
+            </tr>
+            {% if user == accountuser %}
+                <tr>
+                    <td><span style="font-weight: bold">Email: </span></td>
+                    <td><span>{{ accountuser.email }}</span></td>
+                </tr>
+            {% endif %}
+        </table>
+        {% if accountuser == user %}
+            <div class="main__form" style="margin-top: 30px">
+                <a href="#" class="btn btn-primary" style="margin-right: 10px;">Изменить</a>
+                <a href="{% url 'password_change' %}" class="btn btn-danger">Сменить пароль</a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

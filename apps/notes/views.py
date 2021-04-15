@@ -5,7 +5,6 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, TemplateView
 from django.core.paginator import Paginator
 from django.conf import settings
-import requests
 
 from .models import Note
 from .forms import CreateNoteForm
