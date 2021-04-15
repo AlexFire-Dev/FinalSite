@@ -7,10 +7,12 @@
     <div class="container-xl">
         <form class="main__form" action="" method="get">
             <label for="search">Найти заметку</label>
-            <input type="search" class="form-control" name="search" id="search" value="{{ search }}" autocomplete="off" placeholder="Текст или заголовок" style="width: 200px; margin: 0 10px">
+            <input type="search" class="form-control" name="search" id="search" value="{{ search }}" autocomplete="off"
+                   placeholder="Текст или заголовок" style="width: 200px; margin: 0 10px">
             {% if section %}
                 <input type="hidden" name="section" value="{{ section }}">
             {% endif %}
+            <input type="hidden" name="page" value="{{ page }}">
             <button type="submit" class="btn btn-primary">Найти</button>
         </form>
         <div class="container main">
@@ -19,6 +21,18 @@
             {% endfor %}
             <div class="main__note-hidden"></div>
             <div class="main__note-hidden"></div>
+        </div>
+        <div class="paginator">
+        {% if paginator.num_pages > 1 %}
+                <div class="btn-group">
+                    {% for number in paginator.page_range %}
+                        <a href="?page={{ number }}"
+                           class="btn btn-primary{% if number == notes.number %} active disabled{% endif %}">
+                            {{ number }}
+                        </a>
+                    {% endfor %}
+                </div>
+        {% endif %}
         </div>
     </div>
 {% endblock %}

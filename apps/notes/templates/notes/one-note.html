@@ -5,7 +5,8 @@
         <div class="card text-center" style="margin-top: 25px">
             <div class="card-header main__note__header">
                 <span>{{ note.title }}</span>
-                <span>{% if note.author.get_full_name %}{{ note.author.get_full_name }}{% else %}{{ note.author.username }}{% endif %}</span>
+                <span>{% if note.author.get_full_name %}{{ note.author.get_full_name }}{% else %}
+                    {{ note.author.username }}{% endif %}</span>
             </div>
             <div class="card-body main__note__body">
                 <p>{{ note.text }}</p>
@@ -13,13 +14,13 @@
             <div class="card-footer text-muted main__note__body">
                 <span>Создано: {{ note.created_at }}</span>
                 <span>Обновлено: {{ note.modified_at }}</span>
-             </div>
+            </div>
         </div>
         {% if note.author == user %}
-        <div class="main__form">
-            <a href="#" class="btn btn-primary" style="margin-right: 10px;">Изменить</a>
-            <a href="#" class="btn btn-danger">Удалить</a>
-        </div>
+            <div class="main__form" style="margin-top: 20px">
+                <a href="#" class="btn btn-primary" style="margin-right: 10px;">Изменить</a>
+                <a href="{% url 'delete-note' note.id %}" class="btn btn-danger">Удалить</a>
+            </div>
         {% endif %}
-    </div>
+        </div>
 {% endblock %}

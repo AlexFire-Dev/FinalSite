@@ -1,8 +1,10 @@
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, TemplateView
+from django.core.paginator import Paginator
+from django.conf import settings
 import requests
 
 from .models import Note
@@ -16,21 +18,28 @@ class IndexView(TemplateView):
         context = super().get_context_data(**kwargs)
         section = self.request.GET.get('section')
         search = self.request.GET.get('search', '')
+        page = self.request.GET.get('page', '1')
+        notes = Note.objects.get_queryset().order_by('-id')
 
         if section == 'public-notes':
-            notes = Note.objects.filter(status=True)
+            notes = notes.filter(status=True)
         elif section == 'my-notes':
-            notes = Note.objects.filter(author=self.request.user)
+            notes = notes.filter(author=self.request.user)
         else:
-            notes = Note.objects.filter(Q(status=True) | Q(author=self.request.user))
+            notes = notes.filter(Q(status=True) | Q(author=self.request.user))
 
         if search != '':
             notes = notes.filter(Q(title__contains=search) | Q(text__contains=search))
+
+        paginator = Paginator(notes, settings.POSTS_PER_PAGE)
+        notes = paginator.get_page(page)
 
         context.update({
             'notes': notes,
             'section': section,
             'search': search,
+            'page': page,
+            'paginator': paginator,
         })
         return context
 
@@ -41,6 +50,17 @@ def note_view(request, note: int):
         'note': Note.objects.get(id=note)
     }
     return render(request, 'notes/one-note.html', context=context)
+
+
+def note_delete_view(request, note: int):
+
+    note = Note.objects.get(id=note)
+
+    if request.user != note.author:
+        return redirect(reverse_lazy('index'))
+    elif request.user == note.author:
+        note.delete()
+        return redirect(reverse_lazy('index'))
 
 
 class CreateNote(CreateView):

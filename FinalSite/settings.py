@@ -157,6 +157,11 @@ STATICFILES_DIRS = [
 ]
 
 
+# Posts per page
+
+POSTS_PER_PAGE = 9
+
+
 # Django rest framework
 
 REST_FRAMEWORK = {
