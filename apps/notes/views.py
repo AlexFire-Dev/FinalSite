@@ -18,9 +18,11 @@ class IndexView(TemplateView):
         section = self.request.GET.get('section')
         search = self.request.GET.get('search', '')
         page = self.request.GET.get('page', '1')
-        notes = Note.objects.get_queryset().order_by('-id')
+        notes = Note.objects.all().order_by('-id')
 
-        if section == 'public-notes':
+        if not self.request.user.is_authenticated:
+            notes = notes.filter(status=True)
+        elif section == 'public-notes':
             notes = notes.filter(status=True)
         elif section == 'my-notes':
             notes = notes.filter(author=self.request.user)
