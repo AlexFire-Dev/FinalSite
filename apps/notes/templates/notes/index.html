@@ -16,11 +16,13 @@
             <button type="submit" class="btn btn-primary">Найти</button>
         </form>
         <div class="container main">
-            {% for note in notes %}
-                {% include 'notes/note.html' %}
-            {% endfor %}
-            <div class="main__note-hidden"></div>
-            <div class="main__note-hidden"></div>
+            <div class="row">
+                {% for note in notes %}
+                    <div class="col-xl-4 col-md-6 col-sm-12">
+                        {% include 'notes/note.html' %}
+                    </div>
+                {% endfor %}
+            </div>
         </div>
         <div class="paginator">
         {% if paginator.num_pages > 1 %}

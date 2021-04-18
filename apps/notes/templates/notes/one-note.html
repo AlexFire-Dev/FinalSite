@@ -9,7 +9,7 @@
                     {{ note.author.username }}{% endif %}</span>
             </div>
             <div class="card-body main__note__body">
-                <p>{{ note.text }}</p>
+                <p>{{ note.text|linebreaksbr }}</p>
             </div>
             <div class="card-footer text-muted main__note__body">
                 <span>Создано: {{ note.created_at }}</span>
