@@ -15,5 +15,6 @@ urlpatterns = [
     path('', include('django_registration.backends.activation.urls')),
     path('', include('django.contrib.auth.urls')),
 
-    path('<int:userid>/', login_required(AccountView), name='user-account')
+    path('<int:userid>/', login_required(AccountView), name='user-account'),
+    path('change/', login_required(ProfileChangeView.as_view()), name='change-account'),
 ]

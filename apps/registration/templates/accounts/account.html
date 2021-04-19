@@ -29,7 +29,7 @@
         </table>
         {% if accountuser == user %}
             <div class="main__form" style="margin-top: 30px">
-                <a href="#" class="btn btn-primary" style="margin-right: 10px;">Изменить</a>
+                <a href="{% url 'change-account' %}" class="btn btn-primary" style="margin-right: 10px;">Изменить</a>
                 <a href="{% url 'password_change' %}" class="btn btn-danger">Сменить пароль</a>
             </div>
         {% endif %}

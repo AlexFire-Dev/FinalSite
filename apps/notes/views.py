@@ -2,7 +2,7 @@ from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, UpdateView
 from django.core.paginator import Paginator
 from django.conf import settings
 
@@ -80,3 +80,15 @@ class CreateNote(CreateView):
         }
         Note.objects.create(**args)
         return HttpResponseRedirect(self.success_url)
+
+
+class ChangeNoteView(UpdateView):
+    form_class = CreateNoteForm
+    template_name = 'notes/change_note.html'
+
+    def get_object(self, queryset=None):
+        return Note.objects.get(id=self.kwargs.get('note'))
+
+    def get_success_url(self):
+        url = reverse('user-account', args=[self.kwargs.get('note')])
+        return url

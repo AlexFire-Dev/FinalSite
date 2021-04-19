@@ -3,8 +3,8 @@
         <span>{{ note.title }}</span>
         <span>{% if note.author.get_full_name %}{{ note.author.get_full_name }}{% else %}{{ note.author.username }}{% endif %}</span>
     </div>
-    <div class="card-body main__note__body" style="align-items: center;">
-        <p class="main__note__body__text">{{ note.text|truncatewords:30 }}</p>
+    <div class="card-body" style="display: flex; flex-direction: column; justify-content: space-between; align-items: center">
+        <p class="card-text">{{ note.text|truncatewords:30 }}</p>
         <a href="{% url 'note' note.id %}" class="btn btn-primary">Открыть</a>
     </div>
     <div class="card-footer text-muted main__note__body">

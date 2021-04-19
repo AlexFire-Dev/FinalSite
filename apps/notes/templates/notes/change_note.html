@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <div class="container">
+        <form method="post" style="margin-top: 20px">
+            {% csrf_token %}
+
+            {% include 'forms/form_field_text.html' with label='Заголовок' name=form.title.name maxlength=40 value=form.title.value %}
+            <br>
+            {% include 'forms/form_field_textarea.html' with label='Текст' name=form.text.name value=form.text.value %}
+            <br>
+            {% include 'forms/form_field_check.html' with label='Публичная заметка' name=form.status.name value=form.status.value %}
+
+            <button class="btn btn-primary" type="submit" style="margin-top: 30px">Сохранить</button>
+        </form>
+    </div>
+{% endblock %}
