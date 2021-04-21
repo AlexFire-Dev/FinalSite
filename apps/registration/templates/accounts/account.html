@@ -5,31 +5,28 @@
 
 {% block main %}
     <div class="container">
-        <table style="width: 100%;margin-top: 25px">
-            <tr>
-                <td><span style="font-weight: bold">Имя пользователя: </span></td>
-                <td>{{ accountuser.username }}</td>
-            </tr>
-            <tr>
-                <td><span style="font-weight: bold">Имя: </span></td>
-                <td>{% if accountuser.first_name %}<span>{{ accountuser.first_name }}</span>{% else %}
-                    <span>Не указано</span>{% endif %}</td>
-            </tr>
-            <tr>
-                <td><span style="font-weight: bold">Фамилия: </span></td>
-                <td>{% if accountuser.last_name %}<span>{{ accountuser.last_name }}</span>{% else %}
-                    <span>Не указано</span>{% endif %}</td>
-            </tr>
+        <h2 style="margin-top: 25px">Профиль</h2>
+        <br>
+        <div class="row">
             {% if user == accountuser %}
-                <tr>
-                    <td><span style="font-weight: bold">Email: </span></td>
-                    <td><span>{{ accountuser.email }}</span></td>
-                </tr>
+                {% include 'forms/form_field_text.html' with label='Имя пользователя' name='username' value=accountuser.username classes='col-sm-6' readonly=True %}
+                {% include 'forms/form_field_email.html' with label='Email' name='email' value=accountuser.email classes='col-sm-6' readonly=True %}
+            {% else %}
+                {% include 'forms/form_field_text.html' with label='Имя пользователя' name='username' value=accountuser.username readonly=True %}
             {% endif %}
-        </table>
+        </div>
+        <br>
+        <div class="row">
+            {% with 'col-sm-6' as classes %}
+                {% include 'forms/form_field_text.html' with label='Имя' name='first_name' value=accountuser.first_name readonly=True %}
+                {% include 'forms/form_field_text.html' with label='Фамилия' name='last_name' value=accountuser.last_name readonly=True %}
+            {% endwith %}
+        </div>
+        <br>
+
         {% if accountuser == user %}
             <div class="main__form" style="margin-top: 30px">
-                <a href="{% url 'change-account' %}" class="btn btn-primary" style="margin-right: 10px;">Изменить</a>
+                <a href="{% url 'change-account' %}" class="btn btn-primary" style="margin-right: 10px;">Редактировать</a>
                 <a href="{% url 'password_change' %}" class="btn btn-danger">Сменить пароль</a>
             </div>
         {% endif %}

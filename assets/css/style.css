@@ -78,7 +78,6 @@ body {
 
 .main__note {
   height: fit-content;
-  min-height: 250px;
   margin:  10px 0;
 }
 

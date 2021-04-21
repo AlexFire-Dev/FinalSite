@@ -87,8 +87,16 @@ class ChangeNoteView(UpdateView):
     template_name = 'notes/change_note.html'
 
     def get_object(self, queryset=None):
-        return Note.objects.get(id=self.kwargs.get('note'))
+        note = Note.objects.get(id=self.kwargs.get('note'))
+
+        return note
 
     def get_success_url(self):
         url = reverse('user-account', args=[self.kwargs.get('note')])
         return url
+
+    def dispatch(self, request, *args, **kwargs):
+        if self.get_object().author != self.request.user:
+            return HttpResponseRedirect(reverse('index'))
+        else:
+            return super(ChangeNoteView, self).dispatch(request, *args, **kwargs)

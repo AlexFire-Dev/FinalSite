@@ -6,6 +6,7 @@ from .views import *
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
+
     path('<int:note>/', note_view, name='note'),
     path('<int:note>/change/', login_required(ChangeNoteView.as_view()), name='change-note'),
     path('<int:note>/delete/', login_required(note_delete_view), name='delete-note'),
