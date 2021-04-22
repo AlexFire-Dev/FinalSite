@@ -18,8 +18,16 @@
         <br>
         <div class="row">
             {% with 'col-sm-6' as classes %}
-                {% include 'forms/form_field_text.html' with label='Имя' name='first_name' value=accountuser.first_name readonly=True %}
-                {% include 'forms/form_field_text.html' with label='Фамилия' name='last_name' value=accountuser.last_name readonly=True %}
+                {% if accountuser.first_name %}
+                    {% include 'forms/form_field_text.html' with label='Имя' name='first_name' value=accountuser.first_name readonly=True %}
+                {% else %}
+                    {% include 'forms/form_field_text.html' with label='Имя' name='first_name' value='Не указано' readonly=True %}
+                {% endif %}
+                {% if accountuser.first_name %}
+                    {% include 'forms/form_field_text.html' with label='Фамилия' name='last_name' value=accountuser.last_name readonly=True %}
+                {% else %}
+                    {% include 'forms/form_field_text.html' with label='Фамилия' name='last_name' value='Не указано' readonly=True %}
+                {% endif %}
             {% endwith %}
         </div>
         <br>

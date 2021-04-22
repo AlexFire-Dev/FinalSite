@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import UpdateView
 
@@ -8,13 +8,8 @@ from .forms import ProfileChangeForm
 
 def AccountView(request, userid):
 
-    if User.objects.filter(id=userid):
-        user = User.objects.get(id=userid)
-    else:
-        return redirect(reverse_lazy('index'))
-
     context = {
-        'accountuser': user,
+        'accountuser': get_object_or_404(User, id=userid),
     }
 
     return render(request, 'accounts/account.html', context=context)

@@ -17,11 +17,15 @@
         </form>
         <div class="container">
             <div class="row">
-                {% for note in notes %}
-                    <div class="col-xl-4 col-md-6">
-                        {% include 'notes/note.html' %}
-                    </div>
-                {% endfor %}
+                {% if not notes %}
+                    <div style="display: flex; margin-top: 35px; align-items: center; justify-content: center"><span style="width: fit-content; height: fit-content">Заметок пока нет :(</span></div>
+                {% else %}
+                    {% for note in notes %}
+                        <div class="col-xl-4 col-md-6">
+                            {% include 'notes/note.html' %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
         <div class="paginator">

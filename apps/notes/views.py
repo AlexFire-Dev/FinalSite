@@ -1,6 +1,6 @@
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, TemplateView, UpdateView
 from django.core.paginator import Paginator
@@ -48,14 +48,14 @@ class IndexView(TemplateView):
 def note_view(request, note: int):
 
     context = {
-        'note': Note.objects.get(id=note)
+        'note': get_object_or_404(Note, id=note)
     }
     return render(request, 'notes/one-note.html', context=context)
 
 
 def note_delete_view(request, note: int):
 
-    note = Note.objects.get(id=note)
+    note = get_object_or_404(Note, id=note)
 
     if request.user != note.author:
         return redirect(reverse_lazy('index'))
@@ -87,9 +87,7 @@ class ChangeNoteView(UpdateView):
     template_name = 'notes/change_note.html'
 
     def get_object(self, queryset=None):
-        note = Note.objects.get(id=self.kwargs.get('note'))
-
-        return note
+        return get_object_or_404(Note, id=self.kwargs.get('note'))
 
     def get_success_url(self):
         url = reverse('user-account', args=[self.kwargs.get('note')])

@@ -17,6 +17,8 @@
 
         <link rel="stylesheet" href="{% static 'css/style.css' %}" />
         <link rel="stylesheet" href="{% block extra-styles %}{% endblock %}"/>
+
+        {% block script %}{% endblock %}
     </head>
     <body>
         <header class="header">
