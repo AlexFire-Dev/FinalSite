@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+
+  db:
+    image: postgres:alpine
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
+    env_file:
+      - ./deploy/conf.env
+    restart: unless-stopped
+
+  web:
+    build: .
+    volumes:
+      - ./media/:/app/media/
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    env_file:
+      - ./deploy/conf.env
+    restart: unless-stopped
+
+  nginx:
+    build: ./deploy/nginx
+    ports:
+      - 80:80
+    depends_on:
+      - db
+      - web
+    restart: unless-stopped
+
+volumes:
+  pgdata:

@@ -8,7 +8,7 @@
         <a href="{% url 'note' note.id %}" class="btn btn-primary">Открыть</a>
     </div>
     <div class="card-footer text-muted main__note__body">
-        <span>Создано: {{ note.created_at }}</span>
-        <span>Обновлено: {{ note.modified_at }}</span>
+        <div style="display: flex; flex-direction: row; justify-content: center">Создано:<div class="local-time">{{ note.created_at|date:'Y.m.d H:i' }}</div></div>
+        <div style="display: flex; flex-direction: row; justify-content: center">Обновлено: <div class="local-time">{{ note.modified_at|date:'Y.m.d H:i' }}</div></div>
     </div>
 </div>

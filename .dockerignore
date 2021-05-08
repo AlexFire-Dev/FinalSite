@@ -1,0 +1,17 @@
+# Ignore everything
+**
+
+# Allowed
+!apps/
+!assets/
+!templates/
+!FinalSite/
+!manage.py
+!requirements.txt
+!start.sh
+
+# Override allowed
+.idea/
+__pycache__/
+*.py[cod]
+*$py.class

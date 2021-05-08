@@ -90,7 +90,7 @@ class ChangeNoteView(UpdateView):
         return get_object_or_404(Note, id=self.kwargs.get('note'))
 
     def get_success_url(self):
-        url = reverse('user-account', args=[self.kwargs.get('note')])
+        url = reverse('note', args=[self.kwargs.get('note')])
         return url
 
     def dispatch(self, request, *args, **kwargs):
