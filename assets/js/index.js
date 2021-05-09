@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     for (const dt of document.querySelectorAll('.local-time')) {
-        const utcTime = moment.utc(dt.innerHTML, 'YYYY-MM-DD').toDate();
+        const utcTime = moment.utc(dt.innerHTML, 'YYYY-MM-DD HH:mm').toDate();
         dt.innerHTML = moment(utcTime).local().format('DD.MM.YYYY HH:mm');
     }
 });

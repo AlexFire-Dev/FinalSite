@@ -16,9 +16,11 @@
             {% endwith %}
         </div>
         <br>
+            {% include 'forms/form_field_switch.html' with label='Использовать граватар' name=form.useGravatar.name value=form.useGravatar.value %}
+        <br>
         <div class="main__form" style="margin-top: 30px">
             <button type="submit" class="btn btn-primary" style="margin-right: 10px;">Сохранить</button>
-            <a href="{% gravatar_profile_url user.email %}" class="btn btn-warning" style="margin-right: 10px;">Аватар</a>
+            <a href="{% gravatar_profile_url user.email %}" class="btn btn-warning" style="margin-right: 10px;">Граватар</a>
             <a href="{% url 'user-account' user.id %}" class="btn btn-secondary">Назад</a>
             <br>
         </div>

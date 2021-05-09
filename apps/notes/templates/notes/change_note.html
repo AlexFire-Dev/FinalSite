@@ -9,7 +9,11 @@
             <br>
             {% include 'forms/form_field_textarea.html' with label='Текст' name=form.text.name value=form.text.value %}
             <br>
-            {% include 'forms/form_field_check.html' with label='Публичная заметка' name=form.status.name value=form.status.value %}
+            {% if form.status.value %}
+                {% include 'forms/form_field_check.html' with label='Публичная заметка' name=form.status.name value=form.status.value disabled=True %}
+            {% else %}
+                {% include 'forms/form_field_check.html' with label='Публичная заметка' name=form.status.name value=form.status.value %}
+            {% endif %}
 
             <button class="btn btn-primary" type="submit" style="margin-top: 30px">Сохранить</button>
         </form>

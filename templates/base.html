@@ -27,7 +27,7 @@
                 <a {% if user.is_authenticated %}href="{% url 'user-account' user.id %}" {% endif %}class="header__profile">
                     <img
                         class="header__profile__img"
-                        src="{% if user.email %}{% gravatar_url user.email %}{% else %}{% static 'images/user.svg' %}{% endif %}"
+                        src="{% if user.useGravatar %}{% gravatar_url user.email %}{% else %}{% static 'images/user.svg' %}{% endif %}"
                         alt="userpic"
                         />
                     <span class="header__profile__bio">

@@ -71,9 +71,12 @@ class CreateNote(CreateView):
     success_url = reverse_lazy('index')
 
     def form_valid(self, form):
+        title = form.cleaned_data.get('title')
+        if not title:
+            title = 'Без названия'
 
         args = {
-            'title': form.cleaned_data['title'],
+            'title': title,
             'text': form.cleaned_data['text'],
             'author_id': self.request.user.id,
             'status': form.cleaned_data['status'],
@@ -98,3 +101,7 @@ class ChangeNoteView(UpdateView):
             return HttpResponseRedirect(reverse('index'))
         else:
             return super(ChangeNoteView, self).dispatch(request, *args, **kwargs)
+
+
+def IcoRedirect(request):
+    return redirect(settings.ICO)
