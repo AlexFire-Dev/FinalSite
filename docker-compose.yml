@@ -9,29 +9,43 @@ services:
     ports:
       - 5432:5432
     env_file:
-      - ./deploy/conf.env
+      - deploy/conf.env
     restart: unless-stopped
+    networks:
+      - private
 
   web:
     build: .
     volumes:
-      - ./media/:/app/media/
+      - ./static/:/app/staticfiles/
+      - ./media:/app/media/
     ports:
       - 8000:8000
     depends_on:
       - db
     env_file:
-      - ./deploy/conf.env
+      - deploy/conf.env
     restart: unless-stopped
+    networks:
+      - private
 
   nginx:
-    build: ./deploy/nginx
+    image: nginx:alpine
     ports:
       - 80:80
     depends_on:
       - db
       - web
+    volumes:
+      - ./deploy/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./static:/var/www/django/static:ro
+      - ./media:/var/www/django/media:ro
     restart: unless-stopped
+    networks:
+      - private
 
 volumes:
   pgdata:
+
+networks:
+  private:
